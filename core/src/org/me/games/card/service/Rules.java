@@ -3,6 +3,7 @@ package org.me.games.card.service;
 import org.me.games.card.dto.AlliesBoard;
 import org.me.games.card.dto.board.BoardPosition;
 import org.me.games.card.dto.encounter.Encounter;
+import org.me.games.card.dto.encounter.Encounters;
 import org.me.games.card.dto.player.Player;
 
 import java.util.List;
@@ -10,10 +11,10 @@ import java.util.Random;
 
 public class Rules {
 
-    public static Encounter selectEncounter(EncounterService list, int level){
+    public static Encounter selectEncounter(Encounters list, int level) {
         Encounter result = new Encounter();
         Random rand = new Random();
-        switch (level){
+        switch (level) {
             case 1:
                 List<Encounter> one = list.getOne();
                 result = one.get(rand.nextInt(one.size()));

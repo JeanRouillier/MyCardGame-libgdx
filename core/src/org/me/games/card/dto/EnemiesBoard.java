@@ -42,18 +42,24 @@ public class EnemiesBoard extends Board {
                         System.out.println("Added to temp FRONT");
                     }
                 }
-            }else {
+            } else {
                 setAtPosition(e.getPosition(), e);
             }
         }
     }
 
-    public List<Person> getAllPlacedEnemies(){
+    public void flush() {
+        frontLineEnemyWaitingList.clear();
+        backLineEnemyWaitingList.clear();
+        getAllPlacedEnemies().clear();
+    }
+
+    public List<Person> getAllPlacedEnemies() {
         final ArrayList<Person> result = new ArrayList<>();
-        for(int i = 0; i <= this.getBoard().length-1; i++){
-            for(int j = 0; j <= this.getBoard()[i].length-1; j++){
+        for (int i = 0; i <= this.getBoard().length - 1; i++) {
+            for (int j = 0; j <= this.getBoard()[i].length - 1; j++) {
                 Person current = this.getBoard()[i][j];
-                if ( current != null)
+                if (current != null)
                     result.add(current);
             }
         }

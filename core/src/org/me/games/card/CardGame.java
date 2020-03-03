@@ -13,10 +13,10 @@ import org.me.games.card.asset.AssetLoader;
 import org.me.games.card.dto.AlliesBoard;
 import org.me.games.card.dto.EnemiesBoard;
 import org.me.games.card.dto.encounter.EncounterRow;
+import org.me.games.card.dto.encounter.Encounters;
 import org.me.games.card.dto.ennemy.Enemy;
 import org.me.games.card.input.MyInputProcessor;
 import org.me.games.card.render.BoardRenderer;
-import org.me.games.card.service.EncounterService;
 import org.me.games.card.service.EnemyService;
 import org.me.games.card.service.Round;
 
@@ -29,17 +29,16 @@ import static org.me.games.card.dto.misc.RoundState.ALLIES_PLACED;
 import static org.me.games.card.dto.misc.RoundState.ENCOUNTER_PICKED;
 import static org.me.games.card.dto.misc.RoundState.ENEMIES_ATTACKED;
 import static org.me.games.card.dto.misc.RoundState.ENEMIES_PLACED;
+import static org.me.games.card.dto.misc.RoundState.START;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class CardGame extends ApplicationAdapter {
+@Data @EqualsAndHashCode(callSuper = true) public class CardGame extends ApplicationAdapter {
 
 	public static final String GAME_IDENTIFIER = "org.me.games.card";
 
 	public static AlliesBoard alliesBoard = new AlliesBoard();
 	public static EnemiesBoard enemiesBoard = new EnemiesBoard();
 
-	private EncounterService encounterList = new EncounterService();
+	private Encounters encounterList = new Encounters();
 	public static Round currentRound = new Round();
 
 	public Stage stage;
@@ -63,7 +62,11 @@ public class CardGame extends ApplicationAdapter {
 	}
 
 	@Override public void render() {
-
+		if (START.equals(currentRound.getState())) {
+			currentRound.setActiveEncounter(null);
+			enemiesBoard.flush();
+			alliesBoard.flush();
+		}
 		if (ENCOUNTER_PICKED.equals(currentRound.getState())) {
 			//PLACE ENEMIES
 			Map<Integer, EncounterRow> detail = currentRound.getActiveEncounter().getDetail();
@@ -71,7 +74,7 @@ public class CardGame extends ApplicationAdapter {
 			enemiesBoard.placeEnemies(enemies);
 			currentRound.setState(ENEMIES_PLACED);
 		}
-		if(ENEMIES_PLACED.equals(currentRound.getState())){
+		if (ENEMIES_PLACED.equals(currentRound.getState())) {
 			//Place allies
 
 		}

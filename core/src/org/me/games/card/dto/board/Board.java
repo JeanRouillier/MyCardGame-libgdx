@@ -18,7 +18,6 @@ public class Board {
                 board[i][j] = null;
             }
         }
-
     }
 
     public boolean isOccupied(BoardPosition position){
