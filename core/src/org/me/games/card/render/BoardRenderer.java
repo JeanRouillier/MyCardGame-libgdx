@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,6 +20,7 @@ import org.me.games.card.asset.AssetLoader;
 import org.me.games.card.dto.EnemiesBoard;
 import org.me.games.card.dto.Person;
 import org.me.games.card.dto.encounter.Encounter;
+import org.me.games.card.dto.misc.RoundState;
 import org.me.games.card.dto.player.Players;
 import org.me.games.card.input.EncounterButtonClickListener;
 
@@ -57,7 +59,7 @@ public class BoardRenderer {
 
         Players.playersList.forEach(p -> renderPerson(spriteBatch, assetLoader, p, true));
         enemiesBoard.getAllPlacedEnemies().forEach(e -> renderPerson(spriteBatch, assetLoader, e, false));
-
+        renderCurrentRoundState();
         spriteBatch.end();
         shapeRenderer.end();
     }
@@ -201,6 +203,36 @@ public class BoardRenderer {
         }
         TextureAtlas.AtlasRegion region = a.getBoardAtlas().findRegion(currentEncounter.getTextureName());
         spriteBatch.draw(region, halfWidth, 0, 100, 150);
+    }
+
+    public void renderCurrentRoundState(){
+        BitmapFont font = new BitmapFont();
+        final RoundState state = CardGame.currentRound.getState();
+        String toPrint = "";
+        switch(state){
+            case START:
+                toPrint = "Pick encounter";
+                break;
+            case ENCOUNTER_PICKED:
+                toPrint = "Placing enemies";
+                break;
+            case ENEMIES_PLACED:
+                toPrint = "Place your team";
+                break;
+            case ALLIES_PLACED:
+                toPrint = "Enemies attack";
+                break;
+            case ENEMIES_ATTACKED:
+                toPrint = "You attack";
+                break;
+            case ALLIES_ATTACKED:
+                toPrint = "End of turn";
+                break;
+            default:
+                toPrint = "Bite";
+                break;
+        }
+        font.draw(spriteBatch, toPrint, halfWidth, HEIGHT -10);
     }
 
     public void dispose(){

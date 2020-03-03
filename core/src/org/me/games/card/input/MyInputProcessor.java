@@ -10,7 +10,7 @@ import org.me.games.card.service.Rules;
 import java.util.Optional;
 
 import static org.me.games.card.dto.misc.RoundState.ALLIES_PLACED;
-import static org.me.games.card.dto.misc.RoundState.ENCOUNTER_PICKED;
+import static org.me.games.card.dto.misc.RoundState.ENEMIES_PLACED;
 
 public class MyInputProcessor implements InputProcessor {
 
@@ -30,7 +30,7 @@ public class MyInputProcessor implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         //Ally to place
-        if (button == Input.Buttons.LEFT && ENCOUNTER_PICKED.equals(CardGame.currentRound.getState())) {
+        if (button == Input.Buttons.LEFT && ENEMIES_PLACED.equals(CardGame.currentRound.getState())) {
             Optional<BoardPosition> boardPosition = PositionConvertor.convertInputToBoardPosition(screenX, screenY);
             if (boardPosition.isPresent()) {
                 Rules.placePlayers(CardGame.alliesBoard, Players.getWIZARD(), boardPosition.get());

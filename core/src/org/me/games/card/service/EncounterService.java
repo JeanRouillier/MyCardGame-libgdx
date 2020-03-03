@@ -21,13 +21,50 @@ public class EncounterService {
     }
 
     public static List<Encounter> initLevelOne(){
-        return Stream.of(new Encounter("Road of Sacrifices", Stream.of(
-                //TODO set level 1 to 2
-                new AbstractMap.SimpleEntry<Integer, EncounterRow>(1, new EncounterRow(1, 3, 0, 0)),
-                new AbstractMap.SimpleEntry<Integer, EncounterRow>(2, new EncounterRow(1, 2, 0, 0)),
-                new AbstractMap.SimpleEntry<Integer, EncounterRow>(3, new EncounterRow(2, 2, 1, 0)),
-                new AbstractMap.SimpleEntry<Integer, EncounterRow>(4, new EncounterRow(2, 1, 2, 0)))
-                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue)), true, "class_encounters_00037"))
+        return Stream.of(
+                new Encounter("Shattered Dungeon", Stream.of(
+                        new AbstractMap.SimpleEntry<>(1, new EncounterRow(1, 1, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(2, new EncounterRow(1, 0, 1, 0)),
+                        new AbstractMap.SimpleEntry<>(3, new EncounterRow(2, 1, 1, 0)),
+                        new AbstractMap.SimpleEntry<>(4, new EncounterRow(2, 2, 1, 0)))
+                        .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue)), true, "class_encounters_00033"),
+
+                new Encounter("Hollow Cave", Stream.of(
+                        new AbstractMap.SimpleEntry<>(1, new EncounterRow(1, 1, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(2, new EncounterRow(1, 2, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(3, new EncounterRow(2, 3, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(4, new EncounterRow(2, 4, 0, 0)))
+                        .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue)), true, "class_encounters_00034"),
+
+                new Encounter("The Deeps", Stream.of(
+                        new AbstractMap.SimpleEntry<>(1, new EncounterRow(1, 2, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(2, new EncounterRow(1, 3, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(3, new EncounterRow(2, 4, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(4, new EncounterRow(2, 3, 1, 0)))
+                        .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue)), true, "class_encounters_00035"),
+
+                new Encounter("Ash Gardens", Stream.of(
+                        new AbstractMap.SimpleEntry<>(1, new EncounterRow(1, 2, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(2, new EncounterRow(1, 1, 1, 0)),
+                        new AbstractMap.SimpleEntry<>(3, new EncounterRow(2, 2, 1, 0)),
+                        new AbstractMap.SimpleEntry<>(4, new EncounterRow(2, 1, 2, 0)))
+                        .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue)), true, "class_encounters_00035"),
+
+                new Encounter("Road of Sacrifices", Stream.of(
+                        new AbstractMap.SimpleEntry<>(1, new EncounterRow(1, 2, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(2, new EncounterRow(1, 2, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(3, new EncounterRow(2, 2, 1, 0)),
+                        new AbstractMap.SimpleEntry<>(4, new EncounterRow(2, 1, 2, 0)))
+                        .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue)), true, "class_encounters_00037"),
+
+                new Encounter("Ashen Hollow", Stream.of(
+                        new AbstractMap.SimpleEntry<>(1, new EncounterRow(1, 1, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(2, new EncounterRow(1, 3, 0, 0)),
+                        new AbstractMap.SimpleEntry<>(3, new EncounterRow(2, 2, 1, 0)),
+                        new AbstractMap.SimpleEntry<>(4, new EncounterRow(2, 5, 0, 0)))
+                        .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue)), true, "class_encounters_00038")
+
+                )
                 .collect(Collectors.toList());
     }
 }

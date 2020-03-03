@@ -4,7 +4,11 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor public enum RoundState {
 
-    START(0), ENCOUNTER_PICKED(1), ALLIES_PLACED(2), ENEMIES_ATTACKED(3), ALLIES_ATTACKED(4);
+    START,
+    ENCOUNTER_PICKED,
+    ENEMIES_PLACED,
+    ALLIES_PLACED,
+    ENEMIES_ATTACKED,
+    ALLIES_ATTACKED
 
-    private Integer value;
 }
