@@ -10,8 +10,4 @@ import org.me.games.card.dto.board.Board;
         super();
     }
 
-    public void flush() {
-        setBoard(new Person[2][3]);
-    }
-
 }

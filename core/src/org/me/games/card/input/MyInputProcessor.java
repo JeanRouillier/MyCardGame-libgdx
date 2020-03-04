@@ -4,10 +4,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import org.me.games.card.CardGame;
 import org.me.games.card.dto.board.BoardPosition;
+import org.me.games.card.dto.player.Player;
 import org.me.games.card.dto.player.Players;
 import org.me.games.card.service.Rules;
 
 import java.util.Optional;
+import java.util.Random;
 
 import static org.me.games.card.dto.misc.RoundState.ALLIES_PLACED;
 import static org.me.games.card.dto.misc.RoundState.ENEMIES_PLACED;
@@ -32,8 +34,12 @@ public class MyInputProcessor implements InputProcessor {
         //Ally to place
         if (button == Input.Buttons.LEFT && ENEMIES_PLACED.equals(CardGame.currentRound.getState())) {
             Optional<BoardPosition> boardPosition = PositionConvertor.convertInputToBoardPosition(screenX, screenY);
-            if (boardPosition.isPresent()) {
-                Rules.placePlayers(CardGame.alliesBoard, Players.getWIZARD(), boardPosition.get());
+
+            if (boardPosition.isPresent() && !CardGame.alliesBoard.getAtPosition(boardPosition.get()).isPresent()) {
+
+                final Player player = Players.activePlayers
+                        .get(new Random().nextInt(Players.activePlayers.size()));
+                Rules.placePlayers(CardGame.alliesBoard, player, boardPosition.get());
                 CardGame.currentRound.setState(ALLIES_PLACED);
                 return true;
             }

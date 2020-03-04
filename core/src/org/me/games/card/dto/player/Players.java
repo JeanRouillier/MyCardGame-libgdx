@@ -18,13 +18,15 @@ public class Players {
     private static Player HERALD = new Player("herald", null, null,
             "herald.png");
 
+    public static List<Player> activePlayers = new ArrayList<>(Arrays.asList(ASSASSIN, KNIGHT));
+
     public static List<Player> playersList = new ArrayList<>(Arrays.asList(WIZARD, ASSASSIN, KNIGHT, HERALD));
 
-    public static Player getWIZARD(){
+    public static Player getWIZARD() {
         return WIZARD;
     }
 
-    public static Player getASSASSIN(){
+    public static Player getASSASSIN() {
         return ASSASSIN;
     }
 

@@ -55,6 +55,7 @@ import static org.me.games.card.dto.misc.RoundState.START;
 
 		boardRenderer = new BoardRenderer(this, new SpriteBatch(), new ShapeRenderer());
 		boardRenderer.renderEncounterButton(stage);
+		boardRenderer.renderResetRoundButton(stage);
 	}
 
 	@Override public void resize(int width, int height) {
@@ -87,14 +88,14 @@ import static org.me.games.card.dto.misc.RoundState.START;
 			EnemyService.enemyAttack(enemies, alliesBoard);
 			currentRound.setState(ENEMIES_ATTACKED);
 		}
-		if(ENEMIES_ATTACKED.equals(currentRound.getState())){
+		if (ENEMIES_ATTACKED.equals(currentRound.getState())) {
 			currentRound.setState(ALLIES_ATTACKED);
 		}
-		if(ALLIES_ATTACKED.equals(currentRound.getState())){
+		if (ALLIES_ATTACKED.equals(currentRound.getState())) {
 
 		}
 
-		boardRenderer.render(assetLoader, enemiesBoard, currentRound.getActiveEncounter());
+		boardRenderer.render(assetLoader, currentRound.getActiveEncounter());
 		stage.act();
 		stage.draw();
 	}

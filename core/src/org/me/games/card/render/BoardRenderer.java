@@ -17,12 +17,11 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.me.games.card.CardGame;
 import org.me.games.card.asset.AssetLoader;
-import org.me.games.card.dto.EnemiesBoard;
 import org.me.games.card.dto.Person;
 import org.me.games.card.dto.encounter.Encounter;
 import org.me.games.card.dto.misc.RoundState;
-import org.me.games.card.dto.player.Players;
 import org.me.games.card.input.EncounterButtonClickListener;
+import org.me.games.card.input.ResetRoundButtonClickListener;
 
 @Data
 @AllArgsConstructor
@@ -40,7 +39,7 @@ public class BoardRenderer {
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
 
-    public void render(AssetLoader assetLoader, EnemiesBoard enemiesBoard, Encounter currentEncounter) {
+    public void render(AssetLoader assetLoader, Encounter currentEncounter) {
         spriteBatch.begin();
         shapeRenderer.setAutoShapeType(true);
         shapeRenderer.begin();
@@ -57,8 +56,8 @@ public class BoardRenderer {
 
         renderCurrentEncounter(spriteBatch, assetLoader, currentEncounter);
 
-        Players.playersList.forEach(p -> renderPerson(spriteBatch, assetLoader, p, true));
-        enemiesBoard.getAllPlacedEnemies().forEach(e -> renderPerson(spriteBatch, assetLoader, e, false));
+        CardGame.alliesBoard.getAllPlaced().forEach(p -> renderPerson(spriteBatch, assetLoader, p, true));
+        CardGame.enemiesBoard.getAllPlacedEnemies().forEach(e -> renderPerson(spriteBatch, assetLoader, e, false));
         renderCurrentRoundState();
         spriteBatch.end();
         shapeRenderer.end();
@@ -193,7 +192,22 @@ public class BoardRenderer {
         ImageButton button1 = new ImageButton(encounterFrontDrawable, encounterBackDrawable);
         button1.addListener(new EncounterButtonClickListener(this.getCg()));
         button1.setPosition(2 * halfWidth / 3 + 1, 0);
-        button1.setSize(button1.getWidth()/10,button1.getHeight()/10);
+        button1.setSize(button1.getWidth() / 10, button1.getHeight() / 10);
+        stage.addActor(button1);
+    }
+
+    public void renderResetRoundButton(Stage stage) {
+
+        TextureRegionDrawable resetFrontDrawable = new TextureRegionDrawable(
+                new TextureRegion(new Texture(Gdx.files.internal("board/bonfire_back.png"))));
+
+        TextureRegionDrawable resetBackDrawable = new TextureRegionDrawable(
+                new TextureRegion(new Texture(Gdx.files.internal("board/bonfire_back.png"))));
+
+        ImageButton button1 = new ImageButton(resetFrontDrawable, resetBackDrawable);
+        button1.addListener(new ResetRoundButtonClickListener());
+        button1.setPosition(2 * halfWidth / 3 + 1, HEIGHT / 2);
+        button1.setSize(button1.getWidth() / 10, button1.getHeight() / 10);
         stage.addActor(button1);
     }
 
@@ -205,7 +219,7 @@ public class BoardRenderer {
         spriteBatch.draw(region, halfWidth, 0, 100, 150);
     }
 
-    public void renderCurrentRoundState(){
+    public void renderCurrentRoundState() {
         BitmapFont font = new BitmapFont();
         final RoundState state = CardGame.currentRound.getState();
         String toPrint = "";

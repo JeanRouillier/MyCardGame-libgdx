@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.me.games.card.dto.Person;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -32,27 +34,42 @@ public class Board {
         }
     }
 
-    public boolean setAtPosition(BoardPosition position, Person person){
+    public boolean setAtPosition(BoardPosition position, Person person) {
         Optional<Person> atPosition = getAtPosition(position);
-        if(atPosition.isPresent()){
-            System.out.println(atPosition.map(Person::getName)+" is already present on this position " + position);
+        if (atPosition.isPresent()) {
+            System.out.println(atPosition.map(Person::getName) + " is already present on this position " + position);
             return false;
-        }else{
+        } else {
             person.setPosition(position);
             board[position.getX()][position.getY()] = person;
             return true;
         }
     }
 
+    public List<Person> getAllPlaced() {
+        List<Person> result = new ArrayList<>();
+        for (int i = 0; i <= board.length - 1; i++) {
+            for (int j = 0; j <= board[i].length - 1; j++) {
+                getAtPosition(new BoardPosition(i, j))
+                        .ifPresent(result::add);
+            }
+        }
+        return result;
+    }
+
+    public void flush() {
+        board = new Person[2][3];
+    }
+
     /**
      * Print in console the actual model view
      */
     public void print() {
-        String result ="";
-        for(int i = 0; i <= board.length-1; i++){
-            for(int j = 0; j <= board[i].length-1; j++){
+        String result = "";
+        for (int i = 0; i <= board.length - 1; i++) {
+            for (int j = 0; j <= board[i].length - 1; j++) {
                 String value = board[i][j] != null ? board[i][j].getName() : "null";
-                result += " | "+ value+" | ";
+                result += " | " + value + " | ";
             }
             result += System.lineSeparator();
         }

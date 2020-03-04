@@ -49,9 +49,9 @@ public class EnemiesBoard extends Board {
     }
 
     public void flush() {
+        super.flush();
         frontLineEnemyWaitingList.clear();
         backLineEnemyWaitingList.clear();
-        getAllPlacedEnemies().clear();
     }
 
     public List<Person> getAllPlacedEnemies() {
